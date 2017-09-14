@@ -7,18 +7,18 @@ server:
 
 vagrant_local:
     install: '1'
-    vm: { base_box: xenial64, hostname: connect.local, ip: 192.168.33.99, memory: '2048', sharedfolder: ./, useVagrantCloud: '1', syncType: nfs }
+    vm: { base_box: xenial64, hostname: XXXBOXXXX.local, ip: 192.168.33.99, memory: '2048', sharedfolder: ./, useVagrantCloud: '1', syncType: nfs }
 
 # more stettings see ansible role
 nginx:
     install: '1'
-    docroot: /vagrant/connect/www/http
-    servername: connect.local
+    docroot: /vagrant/XXXBOXXXX/www/http
+    servername: XXXBOXXXX.local
 
 mysql:
     install: '1'
     root_password: '123'
-    databases: [connect,allplan]
+    databases: [XXXBOXXXX]
     user: user
     password: password
 
@@ -67,7 +67,7 @@ typo3:
     install: False
     get_url: https://get.typo3.org/
     sources_path: /vagrant/typo3
-    connect:
+    XXXBOXXXX:
       version: "8.7.6"
       t3deploy_shared_directories:
         - "fileadmin"

@@ -81,8 +81,8 @@ nginx_default_upstream_proxy_settings:
 nginx_letsencrypt_root: '/usr/share/nginx/challenges'
 
 nginx_sites:
-  connect:
-    domains: ['connect.local']
+  XXXBOXXXX:
+    domains: ['XXXBOXXXX.local']
     default_server: True
 
 
