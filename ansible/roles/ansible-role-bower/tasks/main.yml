@@ -1,0 +1,8 @@
+---
+- name: Install Bower package
+  npm: >
+    name=bower
+    state=present
+    global=yes
+    version={{ bower_version }}
+  tags: bower

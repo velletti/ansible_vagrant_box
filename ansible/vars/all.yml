@@ -1,0 +1,82 @@
+---
+server:
+    install: '1'
+    packages: [vim, git, imagemagick, nodejs, npm]
+    timezone: Europe/Berlin
+    locale: de_DE.UTF-8
+
+vagrant_local:
+    install: '1'
+    vm: { base_box: xenial64, hostname: connect.local, ip: 192.168.33.99, memory: '2048', sharedfolder: ./, useVagrantCloud: '1', syncType: nfs }
+
+# more stettings see ansible role
+nginx:
+    install: '1'
+    docroot: /vagrant/connect/www/http
+    servername: connect.local
+
+mysql:
+    install: '1'
+    root_password: '123'
+    databases: [connect,allplan]
+    user: user
+    password: password
+
+php:
+    packages: [php7.1-cli, php7.1-intl, php7.1-dom, php7.1-xml, php7.1-curl,php7.1-imagick,php7.1-mcrypt,php7.1-geoip,php7.1-gd,php7.1-imap,php7.1-mbstring,php7.1-ldap,php7.1-mysql]
+    php_ppa: "ppa:ondrej/php"
+    php_packages:
+      - php7.1-common
+      - php7.1-cli
+      - php7.1-intl
+      - php7.1-curl
+      - php7.1-cgi
+      - php7.1-fpm
+      - php7.1-mysql
+      - php7.1-gd
+      - php7.1-mcrypt
+      - php7.1-mbstring
+      - php7.1-imagick
+      - php7.1-soap
+      - php7.1-zip
+      - php7.1-xml
+
+    php_timezone: Europe/Berlin
+
+    php_allow_url_fopen: 1
+    php_upload_max_filesize: "20M"
+    php_post_max_size: "20M"
+    php_memory_limit: "1024M"
+    php_max_execution_time: 240
+
+    php_opcache_enable: 1
+    php_opcache_revalidate_freq: 2592000
+    php_opcache_opcache_validate_timestamps: 1
+    php_opcache_max_accelerated_files: 20000
+    php_opcache_memory_consumption: 192
+    php_opcache_interned_strings_buffer: 16
+    php_opcache_fast_shutdown: 1
+    max_input_vars: 2000
+
+
+
+composer:
+    install: '1'
+
+typo3:
+    install: False
+    get_url: https://get.typo3.org/
+    sources_path: /vagrant/typo3
+    connect:
+      version: "8.7.6"
+      t3deploy_shared_directories:
+        - "fileadmin"
+        - "uploads"
+
+      # Check if the following directories exist and are writable
+      t3deploy_writeable_directories:
+        - "typo3temp"
+      t3deploy_source_directories:
+        - "typo3"
+        - "vendor"
+

@@ -1,0 +1,88 @@
+---
+# name: "Checkout latest TYPO3 Version 8 LTS from git"
+
+# Create shared folders (only once)
+- name: Create http folder if not existent
+  file:
+    path: "{{ nginx.docroot }}"
+    state: directory
+
+# Create shared folders (only once)
+- name: Create shared folders if not existent
+  file:
+    path: "{{ nginx.docroot }}/{{ item }}"
+    state: directory
+  with_items: "{{ typo3.connect.t3deploy_shared_directories }}"
+  when: typo3.connect.t3deploy_shared_directories
+
+
+# Create directories that must be writeable
+- name: Create the writable directories
+  file:
+    path: "{{ nginx.docroot }}/{{ item }}"
+    state: directory
+    mode: 0775
+  with_items: "{{ typo3.connect.t3deploy_writeable_directories }}"
+  when: typo3.connect.t3deploy_writeable_directories
+
+
+# Create sources folders (only once)
+- name: Create  folder FOR TYPO3 Sources  if not existent
+  file:
+    path: "{{ typo3.sources_path }}"
+    state: directory
+    mode: 0775
+
+# Create sources folders (only once)
+- name: Create  folder FOR TYPO3 Sources  if not existent
+  file:
+    path: "{{ typo3.sources_path }}/src"
+    state: directory
+    mode: 0775
+
+
+- name: Download TYPO3
+  get_url:
+    url: "{{ typo3.get_url }}{{ typo3.connect.version }}"
+    dest: "{{ typo3.sources_path }}"
+    # owner: root
+    # group: root
+    # mode: 0755
+  when: typo3.install == True
+
+- name: Extract tar.gz into {{ typo3.sources_path }}/src
+  # command: "tar -xzf {{ typo3.sources_path }}/typo3_src-{{ typo3.connect.version }}.tar.gz"
+  unarchive:
+    src: "{{ typo3.sources_path }}/typo3_src-{{ typo3.connect.version }}.tar.gz"
+    dest: "{{ typo3.sources_path }}/src"
+  when: typo3.install == True
+
+
+# Copy  shared folders
+- name: synchronize TYPO3 Folders from {{ typo3.sources_path }}/src/typo3_src-{{ typo3.connect.version }}/ to {{ nginx.docroot }}
+  become: yes
+  become_method: sudo
+  synchronize:
+    #src: "{{ typo3.sources_path }}/src/typo3_src-{{ typo3.connect.version }}/{{ item }}/"
+    src: "{{ typo3.sources_path }}/src/typo3_src-{{ typo3.connect.version }}/{{ item }}"
+    dest: "{{ nginx.docroot }}"
+    recursive: yes
+    checksum: no
+    delete: no
+
+  with_items: "{{ typo3.connect.t3deploy_source_directories }}"
+  when:  typo3.install == True
+
+- name: Create index.php as file instead of symlink
+  command: "{{ item }}"
+  with_items:
+    - rm {{ nginx.docroot }}/index.php
+    - cp {{ typo3.sources_path }}/src/typo3_src-{{ typo3.connect.version }}/index.php {{ nginx.docroot }}/index.php
+  when: typo3.install == True
+
+#- git:
+#    repo: 'git://git.typo3.org/Packages/TYPO3.CMS.git'
+#    dest: /vagrant/typo3-8
+#    version: TYPO3_8-7
+#    accept_hostkey: "yes"
+

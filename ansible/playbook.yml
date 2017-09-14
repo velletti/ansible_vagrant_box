@@ -1,0 +1,23 @@
+---
+- hosts: all
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Install git
+      apt: pkg=git
+
+  vars_files:
+    - vars/all.yml
+  roles:
+     - server
+     - vagrant_local
+     - ansible-nginx
+     - mysql
+     - ansible-role-bower
+     - ansible-role-php7
+     - ansible-role-daemonize
+     - ansible-role-mailhog
+     - composer
+     - typo3-cms8
+     - test
+  #   - app
