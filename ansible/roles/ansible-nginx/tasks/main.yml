@@ -10,7 +10,7 @@
   apt:
     name: 'nginx'
     state: 'present'
-  when: nginx_install_service
+  when: nginx.install
   notify:
     - Test nginx and restart
 
@@ -28,6 +28,7 @@
     - '/etc/nginx/sites-enabled'
     - '/etc/nginx/conf.d'
     - '/etc/nginx/ssl'
+  when: nginx.install
 
 - name: Remove default site
   file:
@@ -37,6 +38,7 @@
     - '/var/www/html'
     - '/etc/nginx/sites-enabled/default'
     - '/etc/nginx/sites-available/default'
+  when: nginx.install
   notify:
     - Test nginx and reload
 
@@ -48,6 +50,7 @@
     owner: 'root'
     mode: '0644'
   register: nginx_register_nginx_config
+  when: nginx.install
   notify:
     - Test nginx and reload
 
@@ -65,7 +68,7 @@
   args:
     creates: '/etc/nginx/ssl/{{ nginx_ssl_override_filename | default(item.value.domains[0]) }}.pem'
   with_dict: '{{ nginx_sites }}'
-  when: nginx_ssl_generate_self_signed_certs
+  when: ( nginx_ssl_generate_self_signed_certs ) and (nginx.install)
   notify:
     - Test nginx and restart
 
@@ -96,6 +99,7 @@
     mode: '0644'
   with_dict: '{{ nginx_sites }}'
   register: nginx_register_vhost_config
+  when: nginx.install
   notify:
     - Test nginx and reload
 
@@ -105,6 +109,7 @@
     dest: '/etc/nginx/sites-enabled/{{ item.key }}.conf'
     state: 'link'
   with_dict: '{{ nginx_sites }}'
+  when: nginx.install
   notify:
     - Test nginx and restart
 

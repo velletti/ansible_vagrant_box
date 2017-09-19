@@ -37,7 +37,7 @@ Below is a list of default values along with a description of what they do.
 # situations where you use Ansible to provision a server but run everything
 # inside of Docker containers. You could use this role to manage your configs
 # but not run nginx by setting this to False.
-nginx_install_service: True
+nginx.install: True
 
 # Which user/group should nginx belong to?
 nginx_user: 'www-data'

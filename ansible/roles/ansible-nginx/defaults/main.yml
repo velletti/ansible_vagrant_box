@@ -1,7 +1,5 @@
 ---
 
-nginx_install_service: 'True'
-
 nginx_user: 'www-data'
 nginx_worker_processes: 'auto'
 nginx_worker_rlimit_nofile: 4096
@@ -81,8 +79,8 @@ nginx_default_upstream_proxy_settings:
 nginx_letsencrypt_root: '/usr/share/nginx/challenges'
 
 nginx_sites:
-  connect:
-    domains: ['connect.local']
+  shop:
+    domains: ['{{ nginx.servername }}']
     default_server: True
 
 

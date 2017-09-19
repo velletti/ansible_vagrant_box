@@ -7,39 +7,43 @@ server:
 
 vagrant_local:
     install: '1'
-    vm: { base_box: xenial64, hostname: connect.local, ip: 192.168.33.99, memory: '2048', sharedfolder: ./, useVagrantCloud: '1', syncType: nfs }
+    vm: { base_box: xenial64, hostname: shop.local, ip: 192.168.33.99, memory: '2048', sharedfolder: ./, useVagrantCloud: '1', syncType: nfs }
 
-# more stettings see ansible role
+# more stettings see ansible role nginx -> defaults -> main.yml
 nginx:
+    install: '0'
+    docroot: /vagrant/shop/www/source
+    servername: shop.local
+
+# more stettings see ansible role apache -> defaults -> main.yml
+apache:
     install: '1'
-    docroot: /vagrant/connect/www/http
-    servername: connect.local
 
 mysql:
     install: '1'
     root_password: '123'
-    databases: [connect,allplan]
+    databases: [shop]
     user: user
     password: password
 
 php:
-    packages: [php7.1-cli, php7.1-intl, php7.1-dom, php7.1-xml, php7.1-curl,php7.1-imagick,php7.1-mcrypt,php7.1-geoip,php7.1-gd,php7.1-imap,php7.1-mbstring,php7.1-ldap,php7.1-mysql]
     php_ppa: "ppa:ondrej/php"
     php_packages:
-      - php7.1-common
-      - php7.1-cli
-      - php7.1-intl
-      - php7.1-curl
-      - php7.1-cgi
-      - php7.1-fpm
-      - php7.1-mysql
-      - php7.1-gd
-      - php7.1-mcrypt
-      - php7.1-mbstring
-      - php7.1-imagick
-      - php7.1-soap
-      - php7.1-zip
-      - php7.1-xml
+      - php7.0-common
+      - php7.0-cli
+      - php7.0-intl
+      - php7.0-curl
+      - php7.0-cgi
+      - php7.0-fpm
+      - php7.0-mysql
+      - php7.0-gd
+      - php7.0-mcrypt
+      - php7.0-mbstring
+      - php7.0-imagick
+      - php7.0-soap
+      - php7.0-zip
+      - php7.0-xml
+      - php7.0-bcmath
 
     php_timezone: Europe/Berlin
 
@@ -66,17 +70,34 @@ composer:
 typo3:
     install: False
     get_url: https://get.typo3.org/
-    sources_path: /vagrant/typo3
+    sources_path: /vagrant/shop_src
+    # XXX change connect  site Name of your Server
     connect:
       version: "8.7.6"
-      t3deploy_shared_directories:
+      deploy_shared_directories:
         - "fileadmin"
         - "uploads"
 
       # Check if the following directories exist and are writable
-      t3deploy_writeable_directories:
+      deploy_writeable_directories:
         - "typo3temp"
-      t3deploy_source_directories:
+      deploy_source_directories:
         - "typo3"
         - "vendor"
 
+shop:
+   install: True
+   web_user: 'www-data'
+   get_url: https://get.typo3.org/
+   sources_path: /vagrant/shop_src
+   version: ""
+   #deploy_shared_directories:
+   #   - "fileadmin"
+   #   - "uploads"
+
+   # Check if the following directories exist and are writable
+   #deploy_writeable_directories:
+   #   - "tmp"
+   deploy_source_directories:
+      - "source"
+      - "vendor"

@@ -1,0 +1,17 @@
+
+
+- stat:
+    path: /vagrant/shop/www/source/config.inc.php
+  register: shopConfig
+
+- debug:
+     msg: "Found config.inc.php so we do not install shop via composer"
+  when: shopConfig.stat.isFile is defined and shopConfig.stat.isFile == True
+
+# Configure an install the shop
+- include: "install-shop.yml"
+  static: no
+#  when: shopConfig.stat is undefined and shopConfig.stat.isFile == False
+
+# toDo : add a script for composer Update ??
+
