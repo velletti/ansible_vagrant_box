@@ -1,0 +1,75 @@
+---
+apache2_modules:
+   - id: 'auth'
+     state: absent
+   - id: 'rewrite'
+     state: present
+
+apache2_confs:
+   - id: 'security'
+     state: absent
+#   - id: 'mime'
+#     state: present
+
+apache2_sites:
+   - id: '000-default'
+     name: '000-default'
+     state: absent
+     add_webroot: no
+     docroot: /vagrant/shop/www/source
+
+   - id: 'shop'
+     name: 'shop.local'
+     ip: '*'
+     port: 80
+     state: present
+     add_webroot: no
+     docroot: /vagrant/shop/www/source
+     template: "etc/apache2/sites-available/site.j2"
+     rules: []
+     aliases: []
+     redirects: []
+
+#     ssl:
+#       port: 443
+#       key_name: mykey
+#       cert_name: mycert
+#       chain_name: mychain
+#     auth:
+#       name: mysite
+#       file: mysite
+#     append: ''
+#
+
+# package name (version)
+apache2_package: apache2
+# mpm package name (version)
+apache2_mpm_package: apache2-mpm
+# ports to listen to
+apache2_ports: [80]
+# ssl ports to listen to
+apache2_ssl_ports: [443]
+# addresses to listen to (2.2  only)
+apache2_listen_addresses: ['*']
+# enabled/disabled modules
+#apache2_modules: []
+# enabled/disabled confs
+#apache2_confs: []
+# enabled/disabled sites
+#apache2_sites: []
+# remove the default host
+apache2_remove_default: no
+# start on boot
+apache2_service_enabled: yes
+# current state: started, stopped
+apache2_service_state: started
+# set to one of:  Full | OS | Minimal | Minor | Major | Prod
+apache2_server_tokens: Prod
+# set to one of:  On | Off | EMail
+apache2_server_signiture: 'Off'
+# set to one of:  On | Off | extended
+apache2_trace_enable: 'Off'
+# path to certificates
+apache2_certs_path: /etc/ssl/certs
+# path to keys
+apache2_keys_path: /etc/ssl/private

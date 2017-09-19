@@ -1,0 +1,19 @@
+---
+
+- name: Enabling conf ( see apache2_confs )
+  command: >
+    a2enconf {{ item.id }}
+  args:
+    creates: "/etc/apache2/conf-enabled/{{ item.id }}.conf"
+  when: item.state is not defined or item.state != 'absent'
+  with_items: "{{ apache2_confs }}"
+  notify: reload apache2
+
+- name: Disabling conf
+  command: >
+    a2disconf {{ item.id }}
+  args:
+    removes: "/etc/apache2/conf-enabled/{{ item.id }}.conf"
+  when: item.state is defined and item.state == 'absent'
+  with_items: "{{ apache2_confs }}"
+  notify: reload apache2

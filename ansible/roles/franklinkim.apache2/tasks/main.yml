@@ -1,0 +1,29 @@
+---
+
+- include: install.yml
+  tags:
+    - web
+    - apache2
+    - install
+    - apache2-install
+
+- include: config.yml
+  tags:
+    - web
+    - apache2
+    - config
+    - apache2-config
+
+- include: manage.yml
+  tags:
+    - web
+    - apache2
+    - manage
+    - apache2-manage
+
+- include: service.yml
+  tags:
+    - web
+    - apache2
+    - service
+    - apache2-service

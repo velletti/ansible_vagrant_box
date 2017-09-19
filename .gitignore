@@ -1,0 +1,8 @@
+.idea
+.vagrant
+/connect/
+/shop/
+/shop_src/
+/typo3/
+/ubuntu-*.log
+/ansible/ubuntu-*.log
