@@ -1,5 +1,5 @@
   ServerName {{ item.name }}
-  DocumentRoot {{ item.docroot }}
+  DocumentRoot "{{ item.docroot }}"
   {% for value in item.aliases|default([]) %}
   ServerAlias {{ value }}
   {% endfor %}
@@ -12,7 +12,7 @@
 
   # --- directories -----------------------------------------------------------
 
-  <Directory {{ item.docroot }}>
+  <Directory "{{ item.docroot }}">
     AllowOverride All
     Options FollowSymLinks
     Require all granted

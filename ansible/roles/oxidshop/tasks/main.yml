@@ -11,7 +11,9 @@
 # Configure an install the shop
 - include: "install-shop.yml"
   static: no
-#  when: shopConfig.stat is undefined and shopConfig.stat.isFile == False
+  when: shopConfig.stat is undefined and shopConfig.stat.isFile == False
 
 # toDo : add a script for composer Update ??
+
+
 

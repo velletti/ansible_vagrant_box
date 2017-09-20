@@ -1,11 +1,15 @@
-
 - file:
-    path: /vagrant/shop/www/source
-    state: absent
+    path: /vagrant/shop
+    owner: "{{ shop.web_user }}"
+    mode: 0644
 
-- file:
-    path: /vagrant/shop/www/vendor
-    state: absent
+#- file:
+#    path: /vagrant/shop/www/source
+#    state: absent
+
+#- file:
+#    path: /vagrant/shop/www/vendor
+#    state: absent
 
 
 - file:

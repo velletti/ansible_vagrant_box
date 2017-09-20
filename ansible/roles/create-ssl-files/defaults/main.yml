@@ -1,0 +1,10 @@
+---
+# see vars -> all
+
+ssl:
+  install: true
+  path: '/etc/ssl'
+  dhparam_bits: 2048
+  sites:
+     - domainname: shop.local
+     - domainname: montana.dev

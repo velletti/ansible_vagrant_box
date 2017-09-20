@@ -4,11 +4,13 @@ apache2_modules:
      state: absent
    - id: 'rewrite'
      state: present
+   - id: 'ssl'
+     state: present
 
 apache2_confs:
    - id: 'security'
      state: absent
-#   - id: 'mime'
+#   - id: 'ssl'
 #     state: present
 
 apache2_sites:
@@ -25,6 +27,38 @@ apache2_sites:
      state: present
      add_webroot: no
      docroot: /vagrant/shop/www/source
+     template: "etc/apache2/sites-available/site.j2"
+     rules: []
+     aliases: []
+     redirects: []
+   #  ssl:
+   #    port: 443
+   #    key_name: '{{ssl.path}}/shop.local.key'
+   #    cert_name: '{{ssl.path}}/shop.local.crt'
+
+   - id: 'montana'
+     name: 'montana.dev'
+     ip: '*'
+     port: 80
+     state: present
+     add_webroot: yes
+     docroot: /vagrant/montana/www/http
+     template: "etc/apache2/sites-available/site.j2"
+     rules: []
+     aliases: []
+     redirects: []
+#     ssl:
+#        port: 443
+#        key_name: '{{ssl.path}}/montana.dev.key'
+#        cert_name: '{{ssl.path}}/montana.dev.crt'
+
+   - id: 'test'
+     name: 'test.dev'
+     ip: '*'
+     port: 80
+     state: present
+     add_webroot: yes
+     docroot: /vagrant/test/www/http
      template: "etc/apache2/sites-available/site.j2"
      rules: []
      aliases: []

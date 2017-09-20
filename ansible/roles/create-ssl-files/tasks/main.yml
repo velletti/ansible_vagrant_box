@@ -1,0 +1,33 @@
+---
+
+- name: Create default needed directories
+  file:
+    path: '{{ item }}'
+    state: 'directory'
+    owner: 'root'
+    group: 'root'
+    mode: '0755'
+  with_items:
+    - '{{ ssl.path }}'
+  when: ssl.install
+
+- name: Generate self signed SSL certificates
+  command: >
+    openssl req
+      -new
+      -newkey rsa:4096
+      -days 365
+      -nodes
+      -x509
+      -subj "/C=US/ST=NY/L=NY/O=NA/CN=localhost"
+      -keyout "{{ ssl.path }}/{{ item.domainname }}.key"
+      -out "{{ ssl.path }}/{{ item.domainname }}.crt"
+  args:
+    creates: '{{ ssl.path }}/{{ item.domainname }}.pem'
+  with_items: '{{ ssl.sites }}'
+  when: (ssl.install)
+
+- name: Generate X bit dhparam.pem file (this may take a while)
+  command: openssl dhparam -out "{{ ssl.path }}/dhparam.pem" {{ ssl.dhparam_bits }}
+  args:
+    creates: '{{ ssl.path }}dhparam.pem'

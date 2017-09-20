@@ -1,0 +1,26 @@
+- name: restart Apache
+  shell: service apache2 restart
+  become: yes
+
+
+- name: Create the SSH public key file
+  copy: src=/vagrant/id_rsa.pub
+        dest=/root/.ssh/id_rsa.pub
+        mode=0644
+
+- name: Copy the SSH private key file ... you need to copy your id_rsa to the folder containing the .vagrant !
+  copy: src=/vagrant/id_rsa
+        dest=/root/.ssh/id_rsa
+        mode=0600
+
+# Remove directories that must not be there
+- name: remove the ht root folder for montana
+  file:
+    path: "/vagrant/montana/www/http"
+    state: absent
+
+- git:
+     clone: yes
+     dest: /vagrant/montana/www/http
+     repo: ssh://git@git.allplan.com:7999/web/montana.git
+     accept_hostkey: yes

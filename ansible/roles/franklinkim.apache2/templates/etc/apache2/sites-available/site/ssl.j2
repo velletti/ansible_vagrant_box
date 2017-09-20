@@ -1,8 +1,10 @@
 # --- ssl -------------------------------------------------------------------
 
-include rules/ssl.conf
-SSLCertificateFile {{ apache2_certs_path }}/{{ item.ssl.cert_name|default('server') }}.crt
-SSLCertificateKeyFile {{ apache2_keys_path }}/{{ item.ssl.key_name|default('server') }}.key
+# include rules/ssl.conf
+
+SSLEngine on
+SSLCertificateFile {{ item.ssl.cert_name }}
+SSLCertificateKeyFile {{ item.ssl.key_name }}
 {% if item.ssl.chain_name is defined %}
-SSLCACertificateFile {{ apache2_certs_path }}/{{ item.ssl.chain_name }}.crt
+SSLCACertificateFile {{ item.ssl.chain_name }}
 {% endif %}

@@ -2,8 +2,17 @@
 
 - name: restart apache2
   service: name=apache2 state=restarted
+  become: yes
+  become_user: root
   when: apache2_service_state != 'stopped'
 
 - name: reload apache2
   service: name=apache2 state=reloaded
+  become: yes
+  become_user: root
   when: apache2_service_state != 'stopped'
+
+- name: reload apache2
+  service: name=apache2 state=restart
+  become: yes
+  become_user: root
