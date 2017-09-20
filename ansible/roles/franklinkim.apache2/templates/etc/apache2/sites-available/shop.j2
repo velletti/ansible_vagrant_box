@@ -1,0 +1,31 @@
+# hardcoded: ansible/roles/franklinkim.apache2/templates/etc/apache2/sites-available/shop.j2
+
+<VirtualHost *:443>
+
+  ServerName shop.local
+  DocumentRoot "/vagrant/shop/www/source"
+
+  # --- rules ----------------------------------------------------------------
+
+  SSLEngine on
+  SSLCertificateFile /etc/ssl/shop.local.crt
+  SSLCertificateKeyFile /etc/ssl/shop.local.key
+
+  # --- directories -----------------------------------------------------------
+
+  <Directory "/vagrant/shop/www/source">
+    AllowOverride All
+    Options FollowSymLinks
+    Require all granted
+    Satisfy Any
+  </Directory>
+
+
+  # --- logging ---------------------------------------------------------------
+
+  LogLevel warn
+  ErrorLog  /var/log/apache2/error-shop.log
+  CustomLog /var/log/apache2/access-shop.log combined
+
+
+</VirtualHost>

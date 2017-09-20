@@ -23,18 +23,10 @@ apache2_sites:
    - id: 'shop'
      name: 'shop.local'
      ip: '*'
-     port: 80
      state: present
      add_webroot: no
      docroot: /vagrant/shop/www/source
-     template: "etc/apache2/sites-available/site.j2"
-     rules: []
-     aliases: []
-     redirects: []
-   #  ssl:
-   #    port: 443
-   #    key_name: '{{ssl.path}}/shop.local.key'
-   #    cert_name: '{{ssl.path}}/shop.local.crt'
+     template: "etc/apache2/sites-available/shop.j2"
 
    - id: 'montana'
      name: 'montana.dev'
