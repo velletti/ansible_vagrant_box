@@ -7,13 +7,13 @@ server:
 
 vagrant_local:
     install: '1'
-    vm: { base_box: xenial64, hostname: shop.local, ip: 192.168.33.99, memory: '2048', sharedfolder: ./, useVagrantCloud: '1', syncType: nfs }
+    vm: { base_box: xenial64, hostname: oxidshop.local, ip: 192.168.33.99, memory: '2048', sharedfolder: ./, useVagrantCloud: '1', syncType: nfs }
 
 # more stettings see ansible role nginx -> defaults -> main.yml
 nginx:
     install: '0'
     docroot: /vagrant/shop/www/source
-    servername: shop.local
+    servername: oxidshop.local
 
 # more stettings see ansible role apache -> defaults -> main.yml
 apache:

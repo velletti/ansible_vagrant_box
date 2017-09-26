@@ -6,5 +6,5 @@ ssl:
   path: '/etc/ssl'
   dhparam_bits: 2048
   sites:
-     - domainname: shop.local
-     - domainname: montana.dev
+     - domainname: oxidshop.local
+

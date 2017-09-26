@@ -21,51 +21,13 @@ apache2_sites:
      docroot: /vagrant/shop/www/source
 
    - id: 'shop'
-     name: 'shop.local'
+     name: 'oxidshop.local'
      ip: '*'
      state: present
      add_webroot: no
      docroot: /vagrant/shop/www/source
      template: "etc/apache2/sites-available/shop.j2"
 
-   - id: 'montana'
-     name: 'montana.dev'
-     ip: '*'
-     port: 80
-     state: present
-     add_webroot: yes
-     docroot: /vagrant/montana/www/http
-     template: "etc/apache2/sites-available/site.j2"
-     rules: []
-     aliases: []
-     redirects: []
-#     ssl:
-#        port: 443
-#        key_name: '{{ssl.path}}/montana.dev.key'
-#        cert_name: '{{ssl.path}}/montana.dev.crt'
-
-   - id: 'test'
-     name: 'test.dev'
-     ip: '*'
-     port: 80
-     state: present
-     add_webroot: yes
-     docroot: /vagrant/test/www/http
-     template: "etc/apache2/sites-available/site.j2"
-     rules: []
-     aliases: []
-     redirects: []
-
-#     ssl:
-#       port: 443
-#       key_name: mykey
-#       cert_name: mycert
-#       chain_name: mychain
-#     auth:
-#       name: mysite
-#       file: mysite
-#     append: ''
-#
 
 # package name (version)
 apache2_package: apache2

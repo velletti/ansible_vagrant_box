@@ -21,10 +21,10 @@ end
 Vagrant.configure("2") do |config|
 
     config.vm.provider :virtualbox do |v|
-        v.name = "shop.v8"
+        v.name = "shop.v4"
         v.customize [
             "modifyvm", :id,
-            "--name", "shop.v8",
+            "--name", "shop.v4",
             "--memory", 2048,
             "--natdnshostresolver1", "on",
             "--cpus", 1,
@@ -50,7 +50,7 @@ Vagrant.configure("2") do |config|
             ansible.limit = 'all'
         end
     else
-        config.vm.provision :shell, path: "ansible/windows.sh", args: ["shop.local"]
+        config.vm.provision :shell, path: "ansible/windows.sh", args: ["oxidshop.local"]
     end
 
     config.vm.synced_folder "./", "/vagrant", type: "nfs"

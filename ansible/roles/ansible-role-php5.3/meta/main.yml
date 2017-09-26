@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Jörg velletti, Based on PHP 7 Role from Arkadiusz Kondas
+  description: Installs and configure PHP 5.3 on Debian/Ubuntu servers
+  license: MIT
+  min_ansible_version: 1.9
+  platforms:
+    - name: Ubuntu
+      versions:
+      - all
+    - name: Debian
+      versions:
+      - all
+  galaxy_tags:
+    - php
+    - php5.3
+    - web
+dependencies: []
