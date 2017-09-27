@@ -1,4 +1,0 @@
----
-- name: restart php5-fpm
-  service: name=php5.3-fpm enabled=yes state=restarted
-  become: yes

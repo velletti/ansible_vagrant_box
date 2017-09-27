@@ -7,7 +7,7 @@
   with_items:
     - "{{ apache2_package }}"
   #  - "{{ apache2_mpm_package }}"
-    - "libapache2-mod-php5.3"
+  #  - "libapache2-mod-php5.6"
 
 - name: Adding rules
   copy:

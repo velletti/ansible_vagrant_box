@@ -17,7 +17,7 @@
      - mysql
      - ansible-role-bower
   #   - ansible-role-php7
-     - ansible-role-php5.3
+     - ansible-role-php5.6
      - ansible-role-daemonize
      - ansible-role-mailhog
      - composer
@@ -26,4 +26,3 @@
 # This installs an empty OXID Shop V6 Beta. Only used ONCE for an empty shop!
   #   - oxidshop
   #   - zz-final-task
-  #   - app
