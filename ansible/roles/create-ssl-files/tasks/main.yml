@@ -19,7 +19,7 @@
       -days 365
       -nodes
       -x509
-      -subj "/C=US/ST=NY/L=NY/O=NA/CN=localhost"
+      -subj "/C=DE/ST=BY/L=Munich/O=Allplan/CN={{ item.domainname }}"
       -keyout "{{ ssl.path }}/{{ item.domainname }}.key"
       -out "{{ ssl.path }}/{{ item.domainname }}.crt"
   args:

@@ -11,18 +11,15 @@
   roles:
      - server
      - vagrant_local
+
      - create-ssl-files
-  #   - ansible-nginx
      - franklinkim.apache2
      - mysql
      - ansible-role-bower
-  #   - ansible-role-php7
      - ansible-role-php5.6
      - ansible-role-daemonize
      - ansible-role-mailhog
      - composer
-     # - typo3-cms8
-
-# This installs an empty OXID Shop V6 Beta. Only used ONCE for an empty shop!
-  #   - oxidshop
-  #   - zz-final-task
+# This installs an empty OXID Shop V4 .. before this, adds id files to root path of the vagrant maschine
+     - zz-final-task
+     - oxidshopV4

@@ -1,0 +1,22 @@
+- file:
+    path: /vagrant/shop
+    state: directory
+    owner: "{{ shop.web_user }}"
+    mode: 0644
+
+- file:
+    path: /vagrant/shop/www
+    state: directory
+    owner: "{{ shop.web_user }}"
+    mode: 0644
+
+# get oxid 4  shop from git
+
+- git:
+     clone: yes
+     accept_hostkey: yes
+     version: v4.7.14
+     repo: git@github.com:OXID-eSales/oxideshop_ce.git
+     dest: /vagrant/shop/www
+  become: yes
+  become_user: root

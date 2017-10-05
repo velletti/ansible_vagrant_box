@@ -1,0 +1,60 @@
+
+# will checkout all repos
+cloneRepos: True
+
+# has only effect at the under reposPortal.develop definied repos .. !
+#  set next line to TRUE and updateRepoBranch to one of the following branches: develop stage or production
+updateRepos: True
+updateRepoBranch: stage
+
+createFolders:
+   - /vagrant/shop/repos
+   - /vagrant/shop/www/source/modules/allplan
+   - /vagrant/shop/www/source/modules/allplan/ap_api
+   - /vagrant/shop/www/source/modules/allplan/ap_base_module
+   - /vagrant/shop/www/source/modules/allplan/ap_cas
+   - /vagrant/shop/www/source/modules/allplan/ap_salesordering
+   - /vagrant/shop/www/source/modules/allplan/ap_sf_sync
+   - /vagrant/shop/www/source/modules/allplan/ap_systemsettings
+   - /vagrant/shop/www/source/modules/allplan/apapps2users
+   - /vagrant/shop/www/source/modules/bimplus
+   - /vagrant/shop/www/source/modules/bimplus/administration
+   - /vagrant/shop/www/source/modules/shoptimax
+   - /vagrant/shop/www/source/modules/shoptimax/allplan
+   - /vagrant/shop/www/source/modules/shoptimax/allplan-invoice
+   - /vagrant/shop/www/source/modules/shoptimax/allplan-invoice_list
+   - /vagrant/shop/www/source/modules/shoptimax/cas_reduced
+   - /vagrant/shop/www/source/modules/shoptimax/nemetschek-small
+   - /vagrant/shop/www/source/modules/shoptimax/smx_allplan_mounthlyprice
+   - /vagrant/shop/www/source/modules/shoptimax/smx_countryvatcheck
+   - /vagrant/shop/www/source/modules/jxmods
+   - /vagrant/shop/www/source/out/allplan
+   - /vagrant/shop/www/source/application/views/allplan
+
+
+reposPortal:
+    develop:
+       - allplan-apps-to-users
+       - allplan-abo-module
+       - allplan-authentication-service
+       - allplan-backend-sales-ordering
+       - allplan-base-module
+       - allplan-cas-module
+       - allplan-evat
+       - allplan-google-tag-manager
+       - allplan-shop-salesforce-sync
+       - allplan-shop-api
+       - allplan-system-settings
+       - allplan-theme
+       - aplido-select-first-variant
+
+      # - bimplus-headline
+      # - bimplus-json
+      # - bimplus-newletter-export
+      # - cas-log-viewer
+       - novalnet-payment
+       - oxidpatch2016
+    dev:
+       - bimplus-administration
+    master:
+       - belnet_languages

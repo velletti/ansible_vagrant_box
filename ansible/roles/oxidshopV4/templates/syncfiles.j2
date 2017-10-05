@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Run: sudo sh syncfiles.sh
+
+# Only test:            rsync -av --dry-run ...
+# Only test and delete: rsync -av --delete --dry-run ...
+
+cd /vagrant/shop/repos/
+# allplan-abo-module
+# ==========================================================================================================================================
+rsync -av allplan-abo-module/copy_this/modules/shoptimax/nemetschek-small/* ../www/source/modules/shoptimax/nemetschek-small
+rsync -av allplan-abo-module/copy_this/modules/shoptimax/vendormetadata.php ../www/source/modules/shoptimax
+
+
+# allplan-apps-to-users
+# ==========================================================================================================================================
+rsync -av allplan-apps-to-users/copy_this/modules/allplan/apapps2users/* ../www/source/modules/allplan/apapps2users
+rsync -av allplan-apps-to-users/copy_this/modules/allplan/vendormetadata.php ../www/source/modules/allplan
+
+
+# allplan-authentication-service
+# ==========================================================================================================================================
+rsync -av allplan-authentication-service/copy_this/modules/allplan/ap_cas/* ../www/source/modules/allplan/ap_cas
+rsync -av allplan-authentication-service/copy_this/modules/allplan/vendormetadata.php ../www/source/modules/allplan
+
+
+# ap_base_module
+# ==========================================================================================================================================
+rsync -av allplan-base-module/copy_this/modules/allplan/ap_base_module/* ../www/source/modules/allplan/ap_base_module
+
+
+# allplan-cas-module
+# ==========================================================================================================================================
+rsync -av allplan-cas-module/copy_this/modules/shoptimax/* ../www/source/modules/shoptimax
+
+
+# allplan-theme
+# ==========================================================================================================================================
+rsync -av allplan-theme/src/application/views/allplan/* ../www/source/application/views/allplan
+rsync -av allplan-theme/src/out/allplan/* ../www/source/out/allplan
+rsync -av allplan-theme/src/modules/shoptimax/allplan/* ../www/source/modules/shoptimax/allplan
+rsync -av allplan-theme/src/modules/shoptimax/allplan_invoice/* ../www/source/modules/shoptimax/allplan_invoice
+rsync -av allplan-theme/src/modules/shoptimax/allplan_invoice_list/* ../www/source/modules/shoptimax/allplan_invoice_list
+rsync -av allplan-theme/src/modules/shoptimax/smx_allplan_monthlyprice/* ../www/source/modules/shoptimax/smx_allplan_monthlyprice

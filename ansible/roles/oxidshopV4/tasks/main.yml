@@ -1,0 +1,57 @@
+
+
+- stat:
+    path: /vagrant/shop/www/source/config.inc.php
+  register: shopConfig
+
+- debug:
+     msg: "Found config.inc.php so we do not install shop via composer"
+  when: shopConfig.stat.isFile is defined and shopConfig.stat.isFile == True
+
+# Configure an install the shop
+- include: "install-shop.yml"
+  static: no
+  when: shopConfig.stat is undefined
+
+# import a dump file, only if the file exists!
+- stat:
+    path: /vagrant/shop/shop.sql
+  register: dump
+
+- name: Import shop dump. Should be a shop.sql file under vagrant root /shop/ directory
+  mysql_db:
+    state: import
+    name: shop
+    login_user: root
+    login_password: "{{ mysql.root_password }}"
+    target: /vagrant/shop/shop.sql
+  when: dump.stat is defined
+
+# Configure an install the shop
+- include: "install-repos.yml"
+  static: no
+  when: cloneRepos == True
+
+
+# Update  modul  repos from bitbucket see settings for branch in defaulst main.yaml
+
+- git:
+     clone: yes
+     update: yes
+     accept_hostkey: yes
+     version: "{{ updateRepoBranch }}"
+     repo: ssh://git@git.allplan.com:7999/portal/{{ item}}.git
+     dest: /vagrant/shop/repos/{{ item}}
+  with_items: "{{ reposPortal.develop }}"
+  become: yes
+  become_user: root
+  when: updateRepos == True
+
+- template:
+    src: 'templates/syncfiles.j2'
+    dest: '/vagrant/shop/repos/syncfiles.sh'
+    owner: root
+    mode: 0744
+
+- name: Execute the sync command in remote shell;
+  shell: /vagrant/shop/repos/syncfiles.sh

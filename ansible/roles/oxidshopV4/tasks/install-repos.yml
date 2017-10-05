@@ -1,0 +1,49 @@
+- file:
+    path: /vagrant/shop
+    state: directory
+    owner: "{{ shop.web_user }}"
+    mode: 0644
+
+- file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ shop.web_user }}"
+    mode: 0644
+  with_items: "{{ createFolders }}"
+
+# get modul  repos from bitbucket
+
+- git:
+     clone: yes
+     accept_hostkey: yes
+     version: develop
+     repo: ssh://git@git.allplan.com:7999/portal/{{ item}}.git
+     dest: /vagrant/shop/repos/{{ item}}
+  with_items: "{{ reposPortal.develop }}"
+  become: yes
+  become_user: root
+  when: cloneRepos == True
+
+
+- git:
+     clone: yes
+     accept_hostkey: yes
+     version: dev
+     repo: ssh://git@git.allplan.com:7999/portal/{{ item}}.git
+     dest: /vagrant/shop/repos/{{ item}}
+  with_items: "{{ reposPortal.dev }}"
+  become: yes
+  become_user: root
+  when: cloneRepos == True
+
+
+- git:
+     clone: yes
+     accept_hostkey: yes
+     version: master
+     repo: ssh://git@git.allplan.com:7999/portal/{{ item}}.git
+     dest: /vagrant/shop/repos/{{ item}}
+  with_items: "{{ reposPortal.master }}"
+  become: yes
+  become_user: root
+  when: cloneRepos == True
