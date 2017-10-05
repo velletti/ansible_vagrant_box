@@ -76,7 +76,7 @@ Vagrant.configure("2") do |config|
     if OS.windows?
       config.vm.synced_folder "./", "/vagrant", type: "nfs"
     elsif OS.mac?
-      config.vm.synced_folder "./", "/vagrant", type: "nfs" :bsd__nfs_options => ["-maproot=0:0"]
+      config.vm.synced_folder "./", "/vagrant", type: "nfs", :bsd__nfs_options => ["-maproot=0:0"]
     elsif OS.linux?
         config.vm.synced_folder "./", "/vagrant", type: "nfs",
         :linux__nfs_options => ["no_root_squash"],
