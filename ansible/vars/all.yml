@@ -87,7 +87,8 @@ typo3:
 
 shop:
    install: True
-   web_user: 'www-data'
+   #web_user: 'www-data'
+   web_user: 'ubuntu'
    get_url: https://get.typo3.org/
    sources_path: /vagrant/shop_src
    version: ""

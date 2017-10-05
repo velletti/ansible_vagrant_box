@@ -2,6 +2,7 @@
     path: /vagrant/shop
     owner: "{{ shop.web_user }}"
     mode: 0644
+    state: directory
 
 #- file:
 #    path: /vagrant/shop/www/source
@@ -16,16 +17,26 @@
     path: /vagrant/shop/www
     owner: "{{ shop.web_user }}"
     mode: 0644
+    state: directory
 
 - file:
     path: /var/www
     owner: "{{ shop.web_user }}"
     mode: 0644
+    state: directory
+    
+- file:
+    path: /var/www/.composer/cache
+    owner: "{{ shop.web_user }}"
+    mode: 0777
+    state: directory
+    
+
 
 # cd /shop
 # composer create-project --no-dev oxid-esales/oxideshop-project www dev-b-6.0-ce
 # will create the folder /vagrant/shop/www with subfolders: /vendor and /source
-# so document Root has to point to /vagrant/shop/www/source
+# so document Root has to point to /vagrant/shop/www/source 
 - composer:
      command: create-project
      arguments: --no-dev oxid-esales/oxideshop-project www dev-b-6.0-ce

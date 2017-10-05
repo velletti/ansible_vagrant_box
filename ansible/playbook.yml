@@ -11,17 +11,17 @@
   roles:
      - server
      - vagrant_local
-     - create-ssl-files
+  #   - create-ssl-files
   #   - ansible-nginx
      - franklinkim.apache2
      - mysql
-     - ansible-role-bower
+   #  - ansible-role-bower
      - ansible-role-php7
-     - ansible-role-daemonize
-     - ansible-role-mailhog
-     - composer
+    # - ansible-role-daemonize
+    # - ansible-role-mailhog
+    # - composer
      # - typo3-cms8
 
      - oxidshop
-  #   - zz-final-task
+     - zz-final-task
   #   - app
