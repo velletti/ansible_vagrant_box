@@ -53,5 +53,19 @@ Vagrant.configure("2") do |config|
         config.vm.provision :shell, path: "ansible/windows.sh", args: ["shop.local"]
     end
 
-    config.vm.synced_folder "./", "/vagrant", type: "nfs"
+
+
+    if OS.windows?
+      config.vm.synced_folder "./", "/vagrant", type: "nfs"
+    elsif OS.mac?
+      config.vm.synced_folder "./", "/vagrant", type: "nfs" :bsd__nfs_options => ["-maproot=0:0"]
+    elsif OS.linux?
+        config.vm.synced_folder "./", "/vagrant", type: "nfs",
+        :linux__nfs_options => ["no_root_squash"],
+        :map_uid => 0,
+        :map_gid => 0
+    else
+      puts "Could not determine host OS or OS not accounted for."
+      exit 1
+    end
 end
