@@ -23,7 +23,6 @@
   lineinfile: dest=/etc/php/7.1/fpm/php.ini
               regexp='opcache.revalidate_freq='
               line='opcache.revalidate_freq=0'
-  tags: [ development ]
 
 - name: Set session.cookie_httponly to `true`
   lineinfile: dest=/etc/php/7.1/fpm/php.ini
